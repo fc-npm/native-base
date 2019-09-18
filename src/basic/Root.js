@@ -14,12 +14,12 @@ class Root extends Component {
         {this.props.children}
         <Toast
           ref={c => {
-            if (!Toast.toastInstance) Toast.toastInstance = c;
+            if (!Toast.toastInstance && !Toast.toastInstance._root) Toast.toastInstance = c;
           }}
         />
         <ActionSheet
-          ref={c => {
-            if (!ActionSheet.actionsheetInstance)
+          ref={c => {// 之前挂载的 ActionSheet 实例可能会在特殊的场景下，ref 会成为 null，从而影响 connectStyle 中 ref
+            if (!ActionSheet.actionsheetInstance && !Actionsheet.actionsheetInstance._root)
               ActionSheet.actionsheetInstance = c;
           }}
         />
